@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Vídeos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; color: #333; }
+    .container { max-width: 400px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.05); }
+    input[type="number"] { width: 100%; padding: 10px; margin-top: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
+    .result { margin-top: 20px; font-size: 18px; font-weight: bold; color: green; }
+    .warning { color: red; margin-top: 10px; font-weight: bold; }
+    label { font-size: 16px; display: block; margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Calculadora de Pacote de Vídeos</h2>
+    <label for="videoCount">Quantos vídeos você quer?</label>
+    <input type="number" id="videoCount" min="1" max="30" placeholder="Digite um número até 30" oninput="calculatePrice()">
+    <div class="result" id="priceResult"></div>
+    <div class="warning" id="warning"></div>
+  </div>
+
+  <script>
+    const maxVideos = 30;
+    const maxTotal = 2000;
+
+    function calculatePrice() {
+      const input = document.getElementById("videoCount");
+      const result = document.getElementById("priceResult");
+      const warning = document.getElementById("warning");
+
+      const qty = parseInt(input.value);
+
+      if (!qty || qty < 1) {
+        result.textContent = "";
+        warning.textContent = "";
+        return;
+      }
+
+      if (qty > maxVideos) {
+        warning.textContent = "⚠️ Máximo permitido: 30 vídeos.";
+        result.textContent = "";
+        return;
+      }
+
+      let total = qty <= 5 ? qty * 100 : qty * 66.5;
+
+      if (total > maxTotal) {
+        warning.textContent = "⚠️ O valor total ultrapassa R$ 2.000.";
+      } else {
+        warning.textContent = "";
+      }
+
+      result.textContent = `Total: R$ ${total.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
