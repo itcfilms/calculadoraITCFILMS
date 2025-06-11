@@ -17,15 +17,12 @@
   <div class="container">
     <h2>Calculadora de Pacote de Vídeos</h2>
     <label for="videoCount">Quantos vídeos você quer?</label>
-    <input type="number" id="videoCount" min="1" max="30" placeholder="Digite um número até 30" oninput="calculatePrice()">
+    <input type="number" id="videoCount" min="1" placeholder="Digite o número de vídeos" oninput="calculatePrice()">
     <div class="result" id="priceResult"></div>
     <div class="warning" id="warning"></div>
   </div>
 
   <script>
-    const maxVideos = 30;
-    const maxTotal = 2000;
-
     function calculatePrice() {
       const input = document.getElementById("videoCount");
       const result = document.getElementById("priceResult");
@@ -39,21 +36,10 @@
         return;
       }
 
-      if (qty > maxVideos) {
-        warning.textContent = "⚠️ Máximo permitido: 30 vídeos.";
-        result.textContent = "";
-        return;
-      }
-
       let total = qty <= 5 ? qty * 100 : qty * 66.5;
 
-      if (total > maxTotal) {
-        warning.textContent = "⚠️ O valor total ultrapassa R$ 2.000.";
-      } else {
-        warning.textContent = "";
-      }
-
       result.textContent = `Total: R$ ${total.toFixed(2)}`;
+      warning.textContent = "";
     }
   </script>
 </body>
